@@ -90,8 +90,8 @@ docker push denschu/simple-wildfly-app
 #### Private Registry
 ```shell
 docker run -p 5000:5000 -v /tmp/registry:/var/lib/registry --name registry registry:2
-docker tag simple-wildfly-app 192.168.99.100:5000/simple-wildfly-app
-docker push 192.168.99.100:5000/simple-wildfly-app
+docker tag simple-wildfly-app localhost:5000/simple-wildfly-app
+docker push localhost:5000/simple-wildfly-app
 ```
 
 ### Selenium Grid
@@ -128,7 +128,7 @@ ansible-playbook provision.yml -i dev/inventory
 ```
 
 # Useful commands for testing
-Please checkout first the Ansible Example Inventory and switch into the root of this project to be able to execute the following commands.
+Please checkout first the Ansible Example Inventory (https://github.com/denschu/example-ansible-inventory) and switch into the root of this project to be able to execute the following commands.
 
 ## Check Ansible setup with test command
 ```shell
