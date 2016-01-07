@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <org.jenkinsci.plugins.ansible.AnsibleAdHocCommandBuilder plugin="ansible@0.3.1">
+      <credentialsId>9d6921d1-5c90-4038-bb43-4866613353de</credentialsId>
+      <hostPattern>applicationservers</hostPattern>
+      <inventory class="org.jenkinsci.plugins.ansible.InventoryContent">
+        <content>[applicationservers]
+192.168.50.92</content>
+        <dynamic>false</dynamic>
+      </inventory>
+      <module></module>
+      <command>/bin/echo hello</command>
+      <sudo>false</sudo>
+      <sudoUser></sudoUser>
+      <forks>5</forks>
+      <unbufferedOutput>true</unbufferedOutput>
+      <colorizedOutput>false</colorizedOutput>
+      <hostKeyChecking>false</hostKeyChecking>
+      <additionalParameters></additionalParameters>
+    </org.jenkinsci.plugins.ansible.AnsibleAdHocCommandBuilder>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+</project>

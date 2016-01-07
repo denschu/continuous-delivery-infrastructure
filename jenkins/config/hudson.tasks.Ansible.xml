@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<hudson.tasks.Ansible_-DescriptorImpl>
+  <installations>
+    <hudson.tasks.Ansible_-AnsibleInstallation>
+      <name>ansible</name>
+      <home>/usr/local/bin</home>
+    </hudson.tasks.Ansible_-AnsibleInstallation>
+  </installations>
+</hudson.tasks.Ansible_-DescriptorImpl>

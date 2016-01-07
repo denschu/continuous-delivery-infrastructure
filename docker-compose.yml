@@ -1,0 +1,23 @@
+nexus:
+  build: nexus
+  ports:
+    - "8081:8081"
+jenkins:
+  build: jenkins
+  ports:
+    - "8080:8080"
+  volumes:
+    - "/tmp/jenkins:/var/jenkins_home"
+    - "/var/run/docker.sock:/var/run/docker.sock"
+    - "/usr/local/bin/docker:/bin/docker"
+  user: root
+#registry:
+#  build: registry
+#  restart: always
+#  ports:
+#    - "5000:5000"
+#  environment:
+#    REGISTRY_HTTP_TLS_CERTIFICATE: /certs/domain.crt
+#    REGISTRY_HTTP_TLS_KEY: /certs/domain.key
+#  volumes:
+#    - "/tmp/registry:/var/lib/registry"

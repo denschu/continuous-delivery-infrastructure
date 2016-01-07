@@ -1,0 +1,26 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.box = "centos/7"
+  # If you run into issues with Ansible complaining about executable permissions,
+  # comment the following statement and uncomment the next one.
+  config.vm.synced_folder ".", "/vagrant"
+  # config.vm.synced_folder ".", "/vagrant", mount_options: ["dmode=700,fmode=600"]
+  config.vm.provider "virtualbox" do |v|
+    v.memory = 2048
+  end
+  config.vm.define :testserver do |testserver|
+    testserver.vm.network :forwarded_port, host: 2222, guest: 22, id: "ssh", auto_correct: true
+    testserver.vm.network :forwarded_port, host: 9080, guest: 9080
+    testserver.vm.network "private_network", ip: "192.168.50.92"
+    # Enable ssh forward agent
+    config.ssh.forward_agent = true
+    testserver.vm.hostname = "testserver"
+  end
+  #if Vagrant.has_plugin?("vagrant-cachier")
+#    config.cache.scope = :box
+#  end
+end
