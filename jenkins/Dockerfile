@@ -21,16 +21,17 @@ COPY plugins.txt /var/jenkins_home/plugins.txt
 RUN /usr/local/bin/plugins.sh /var/jenkins_home/plugins.txt
 # Add Job DSL Promotions Plugin
 
+# Jenkins settings
+COPY config/config.xml /var/jenkins_home/config.xml
+COPY config/settings.xml /usr/share/maven/conf/settings.xml
+COPY config/hudson.tasks.Maven.xml /var/jenkins_home/hudson.tasks.Maven.xml
+COPY config/hudson.tasks.Ansible.xml /var/jenkins_home//hudson.tasks.Ansible.xml
+COPY config/credentials.xml /var/jenkins_home/credentials.xml
+
 # Adding Job DSL Seed Jobs
-# COPY jobs/job-dsl-seed-job.xml /usr/share/jenkins/ref/jobs/job-dsl-seed-job/config.xml
+# COPY jobs/job-dsl-seed-job.xml /var/jenkins_home/jobs/job-dsl-seed-job/config.xml
 
 # Adding default Jenkins Jobs
-COPY jobs/simple-web-rpm.xml /usr/share/jenkins/ref/jobs/simple-web-rpm/config.xml
-COPY jobs/simple-web-deploy.xml /usr/share/jenkins/ref/jobs/simple-web-deploy/config.xml
-
-# Jenkins settings
-COPY config/config.xml /usr/share/jenkins/ref/config.xml
-COPY config/settings.xml /usr/share/maven/conf/settings.xml
-COPY config/hudson.tasks.Maven.xml /usr/share/jenkins/ref/hudson.tasks.Maven.xml
-COPY config/hudson.tasks.Ansible.xml /usr/share/jenkins/ref/hudson.tasks.Ansible.xml
-COPY config/credentials.xml /usr/share/jenkins/ref/credentials.xml
+COPY jobs/simple-web-rpm.xml /var/jenkins_home/jobs/simple-web-rpm/config.xml
+COPY jobs/simple-wildfly-app.xml /var/jenkins_home/jobs/simple-wildfly-app.xml
+COPY jobs/simple-wildfly-app-deploy.xml /var/jenkins_home/jobs/simple-wildfly-app-deploy.xml

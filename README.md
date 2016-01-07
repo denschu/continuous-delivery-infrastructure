@@ -151,4 +151,4 @@ ansible-playbook deployment.yml -i dev/inventory
 ansible-playbook deployment-rpm.yml -i dev/inventory
 ```
 ## Go into the container
-docker exec -it jenkins /bin/bash
+docker exec -it cd_jenkins_1 /bin/bash
