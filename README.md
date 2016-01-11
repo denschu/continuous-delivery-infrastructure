@@ -6,6 +6,12 @@ based on:
 * Maven
 * Ansible
 
+related Git Repositories:
+* Example Ansible Inventory: https://github.com/denschu/example-ansible-inventory
+* Ansible Playbooks: https://github.com/denschu/ansible-playbook
+* Example Application: https://github.com/denschu/simple-wildfly-app
+* Job DSLs: https://github.com/denschu/job-dsl-repository
+
 # Prerequisites (MacOSX)
 
 ## Install Tools
@@ -52,46 +58,28 @@ exit
 ## Setup CD infrastructure based on Docker
 
 ```shell
+docker-machine create --driver virtualbox --virtualbox-memory "4096" --virtualbox-disk-size "40000" --engine-insecure-registry denschu.de default
 docker-compose --x-networking --project-name=cd up
-```
-or without Docker Compose
-```shell
-docker network create cd
-docker run --rm -it -p 8080:8080 -u root -v /tmp/jenkins:/var/jenkins_home --name cd_jenkins_1 denschu/jenkins
-docker run --rm -it -p 8081:8081 --name cd_nexus_1 denschu/nexus
-docker run registry:5000/jenkins:latest
-```
-
-### Jenkins
-```shell
-docker build --tag denschu/jenkins .
 ```
 
 #### Job DSL plugin
 TODO Create DSL scripts for example repos (simple-wildfly-app, etc.)
 
-### Nexus
-```shell
-docker build --tag denschu/nexus .
-```
-
 ### NGINX
-TODO Put HTTP Server in front of Jenkins and Nexus
+TODO Put HTTP Server in front of Jenkins and Nexus?
 
-### Docker Registry
+### Private Docker Registry
 
-#### Docker Hub
+Create separate host
+
 ```shell
-docker login
-docker tag simple-wildfly-app denschu/simple-wildfly-app
-docker push denschu/simple-wildfly-app
+docker-machine create --driver virtualbox --engine-insecure-registry denschu.de registry
 ```
 
-#### Private Registry
+Startup the registry
+
 ```shell
-docker run -p 5000:5000 -v /tmp/registry:/var/lib/registry --name registry registry:2
-docker tag simple-wildfly-app localhost:5000/simple-wildfly-app
-docker push localhost:5000/simple-wildfly-app
+docker-compose -f docker-compose-registry.yml up -d
 ```
 
 ### Selenium Grid
@@ -150,5 +138,28 @@ ansible-playbook deployment.yml -i dev/inventory
 ```shell
 ansible-playbook deployment-rpm.yml -i dev/inventory
 ```
-## Go into the container
-docker exec -it cd_jenkins_1 /bin/bash
+## Helpful commands
+
+### Go into the container
+```shell
+docker exec -it jenkins /bin/bash
+```
+
+### Check Docker Registry
+
+```shell
+curl -v -k https://denschu.de/v2/_catalog
+
+docker pull simple-wildfly-app
+docker tag simple-wildfly-app denschu.de/simple-wildfly-app
+docker push denschu.de/simple-wildfly-app
+
+ssh -N -L 5000:localhost:5000 docker@192.168.99.100
+Password: tcuser
+ssh docker@192.168.99.100
+```
+
+### Generate self signed certificates
+```shell
+openssl req -newkey rsa:4096 -nodes -sha256 -keyout certs/domain.key -x509 -days 365 -out certs/domain.crt
+```

@@ -1,5 +1,0 @@
-- hosts: applicationservers
-  remote_user: vagrant
-  sudo: yes
-  roles:
-    - docker

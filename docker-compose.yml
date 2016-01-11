@@ -1,24 +1,22 @@
-nexus:
-  build: nexus
-  ports:
-    - "8081:8081"
+#nexus:
+#  build: nexus
+#  container_name: nexus
+#  ports:
+#    - "8081:8081"
+#  volumes:
+#    - "/tmp/nexus:/sonatype-work"
 jenkins:
   build: jenkins
+  container_name: jenkins
   ports:
     - "8080:8080"
   volumes:
-    - "/tmp/jenkins:/var/jenkins_home"
+    #- "/tmp/jenkins:/var/jenkins_home"
     - "/var/run/docker.sock:/var/run/docker.sock"
     - "/usr/local/bin/docker:/bin/docker"
+  extra_hosts:
+    # Example Host for the Example Application
+    - "testserver:192.168.50.92"
+    # Private Docker Registry
+    - "denschu.de:192.168.99.101"
   user: root
-registry:
-  image: registry:2
-  restart: always
-  ports:
-    - "5000:5000"
-  environment:
-    #REGISTRY_HTTP_TLS_CERTIFICATE: /certs/domain.crt
-    #REGISTRY_HTTP_TLS_KEY: /certs/domain.key
-    REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY: /var/lib/registry
-  volumes:
-    - "/tmp/registry:/var/lib/registry"

@@ -13,6 +13,7 @@ script-security:1.5
 promoted-builds:2.19
 release:2.4.1
 parameterized-trigger:2.25
-ansible:0.3.1
+ansible:0.4
 ssh-credentials:1.10
+workflow-step-api:1.4.2
 dashboard-view:2.0
