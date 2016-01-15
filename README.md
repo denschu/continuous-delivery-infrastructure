@@ -12,32 +12,21 @@ related Git Repositories:
 * Example Application: https://github.com/denschu/simple-wildfly-app
 * Job DSLs: https://github.com/denschu/job-dsl-repository
 
-# Prerequisites (MacOSX)
+![Overview](cd-infrastructure.png)
 
 ## Install Tools
 
 ### Virtualization stuff
-```shell
-brew cask install virtualbox
-brew cask install vagrant
-vagrant plugin install vagrant-vbguest
-```
+
+See [Vagrant Installation Docs](https://docs.vagrantup.com/v2/installation/) for other operating systems.
 
 ### Docker
-Install Docker Toolbox: https://www.docker.com/docker-toolbox
+See [Docker Toolbox](https://www.docker.com/docker-toolbox)
 
 ### Ansible
-```shell
-sudo easy_install pip
-sudo pip install ansible
-```
+See [Ansible Docs](http://docs.ansible.com/ansible/intro_installation.html)
 
-### Other stuff
-```shell
-brew install ssh-copy-id
-```
-
-## Setup application host based on Vagrant
+## Setup example application host based on Vagrant
 
 ### Start testserver
 ```shell
@@ -57,43 +46,39 @@ exit
 
 ## Setup CD infrastructure based on Docker
 
+### Mac OS X
+
+Create default host for Jenkins and Nexus
 ```shell
 docker-machine create --driver virtualbox --virtualbox-memory "4096" --virtualbox-disk-size "40000" --engine-insecure-registry denschu.de default
-docker-compose --x-networking --project-name=cd up
 ```
 
-#### Job DSL plugin
-TODO Create DSL scripts for example repos (simple-wildfly-app, etc.)
-
-### NGINX
-TODO Put HTTP Server in front of Jenkins and Nexus?
-
-### Private Docker Registry
-
-Create separate host
-
+Create separate host for the registry
 ```shell
 docker-machine create --driver virtualbox --engine-insecure-registry denschu.de registry
 ```
 
-Startup the registry
+### Linux
+TODO
+
+## Start the infrastructure
 
 ```shell
+docker-compose --x-networking --project-name=cd up
 docker-compose -f docker-compose-registry.yml up -d
 ```
 
-### Selenium Grid
-TODO Setup Selenium Grid with Docker
+## Steps
 
-# Steps
+The following steps are part of the generated Jenkins jobs.
 
-## Build
+### Build
 Execute Build in Jenkins (includes compile, package, unit-tests)
 ```shell
 mvn deploy docker:build
 ```
 
-## Release
+### Release
 Execute Release in Jenkins (same as build with specific version number)
 ```shell
 mvn build-helper:parse-version versions:set -DnewVersion=1.0.0
@@ -101,34 +86,34 @@ mvn deploy docker:build
 mvn scm:tag docker:tag
 ```
 
-## Deploy
+### Deploy
 ```shell
-ansible-playbook deployment.yml -i dev/inventory --extra-vars "NAME=simple-wildfly-app VERSION=latest"
+ansible-playbook deployment.yml -i ../example-ansible-inventory/dev/inventory --extra-vars "NAME=simple-wildfly-app VERSION=latest"
 ```
 
-## Test
-TODO Execute Selenium Tests with Jenkins
+### Test
+Execute Selenium Tests with Jenkins
 
-## Provision
+### Provision
 optional step for new hosts!
 ```shell
 ansible-playbook provision.yml -i dev/inventory
 ```
 
-# Useful commands for testing
+## Useful commands for testing
 Please checkout first the Ansible Example Inventory (https://github.com/denschu/example-ansible-inventory) and switch into the root of this project to be able to execute the following commands.
 
-## Check Ansible setup with test command
+### Check Ansible setup with test command
 ```shell
 ansible dev -u vagrant -a "/bin/echo hello"
 ```
 
-## Provision testserver from local shell
+### Provision testserver from local shell
 ```shell
 ansible-playbook provision.yml -i dev/inventory
 ```
 
-## Deploy example application from local shell
+### Deploy example application from local shell
 
 ### Deploy Docker container
 ```shell
@@ -138,7 +123,6 @@ ansible-playbook deployment.yml -i dev/inventory
 ```shell
 ansible-playbook deployment-rpm.yml -i dev/inventory
 ```
-## Helpful commands
 
 ### Go into the container
 ```shell

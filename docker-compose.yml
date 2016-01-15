@@ -20,3 +20,4 @@ jenkins:
     # Private Docker Registry
     - "denschu.de:192.168.99.101"
   user: root
+#TODO Setup Selenium Grid with Docker
