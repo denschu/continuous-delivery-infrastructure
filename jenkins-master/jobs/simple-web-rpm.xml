@@ -76,7 +76,7 @@
         <hudson.tasks.Maven>
           <targets>deploy -Prpm</targets>
           <mavenName>(Default)</mavenName>
-          <properties>altDeploymentRepository=nexus-release-repository::default::http://nexus.cd:8081/content/repositories/releases/</properties>
+          <properties>altDeploymentRepository=artifactory-release-repository::default::http://artifactory:8081/content/repositories/releases/</properties>
           <usePrivateRepository>false</usePrivateRepository>
           <settings class="jenkins.mvn.DefaultSettingsProvider"/>
           <globalSettings class="jenkins.mvn.DefaultGlobalSettingsProvider"/>

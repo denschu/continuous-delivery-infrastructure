@@ -48,7 +48,7 @@ exit
 
 ### Mac OS X
 
-Create default host for Jenkins and Nexus
+Create default host for CD infrastructure
 ```shell
 docker-machine create --driver virtualbox --virtualbox-memory "4096" --virtualbox-disk-size "40000" --engine-insecure-registry denschu.de default
 ```
@@ -64,9 +64,18 @@ TODO
 ## Start the infrastructure
 
 ```shell
-docker-compose --x-networking -f docker-compose.yml --project-name=cd up
+docker-compose up
 docker-compose -f docker-compose-registry.yml up -d
 ```
+
+## Access Tools
+
+| *Tool* | *Link* | *Credentials* |
+| ------------- | ------------- | ------------- |
+| Jenkins | http://${docker-machine ip default}:8080/jenkins/ | no login required |
+| SonarQube | http://${docker-machine ip default}:9000/ | admin/admin |
+| Artifactory | http://${docker-machine ip default}:8081/artifactory | admin/password |
+| Bitbucket | http://${docker-machine ip default}:7990 | no login required |
 
 ## Steps
 
@@ -85,52 +94,33 @@ mvn build-helper:parse-version versions:set -DnewVersion=1.0.0
 mvn deploy docker:build
 mvn scm:tag docker:tag
 ```
-
 ### Deploy
 ```shell
 ansible-playbook deployment.yml -i ../example-ansible-inventory/dev/inventory --extra-vars "NAME=simple-wildfly-app VERSION=latest"
 ```
-
 ### Test
 Execute Selenium Tests with Jenkins
 
 ### Provision
 optional step for new hosts!
 ```shell
-ansible-playbook provision.yml -i dev/inventory
+ansible-playbook cdpipeline.yml -i ../cdpipeline-ansible-inventory/dev
+ansible-playbook jboss.yml -i dev/inventory
 ```
 
 ## Useful commands for testing
-Please checkout first the Ansible Example Inventory (https://github.com/denschu/example-ansible-inventory) and switch into the root of this project to be able to execute the following commands.
+Please checkout first the Ansible Playbooks Repository (https://github.com/denschu/ansible-playbooks) and switch into the root of this project to be able to execute the following commands.
 
 ### Check Ansible setup with test command
 ```shell
 ansible dev -u vagrant -a "/bin/echo hello"
 ```
 
-### Provision testserver from local shell
-```shell
-ansible-playbook provision.yml -i dev/inventory
-```
-
-### Deploy example application from local shell
-
-### Deploy Docker container
-```shell
-ansible-playbook deployment.yml -i dev/inventory
-```
-### Deploy RPM
-```shell
-ansible-playbook deployment-rpm.yml -i dev/inventory
-```
-
 ### Go into the container
 ```shell
 docker exec -it jenkins /bin/bash
 ```
-
 ### Check Docker Registry
-
 ```shell
 curl -v -k https://denschu.de/v2/_catalog
 
@@ -146,4 +136,20 @@ ssh docker@192.168.99.100
 ### Generate self signed certificates
 ```shell
 openssl req -newkey rsa:4096 -nodes -sha256 -keyout certs/domain.key -x509 -days 365 -out certs/domain.crt
+```
+
+### Run Artifactory
+
+```shell
+docker run --name artifactory -p 8081:8081 -v $HOME/artifactory:/var/opt/jfrog/artifactory jfrog-docker-reg2.bintray.io/jfrog/artifactory-oss:latest
+```
+
+### Run bitbucket
+
+```shell
+docker run -u root -v $HOME/bitbucket:/var/atlassian/application-data/bitbucket atlassian/bitbucket-server chown -R daemon  /var/atlassian/application-data/bitbucket
+```
+
+```shell
+docker run -u root -v $HOME/bitbucket:/var/atlassian/application-data/bitbucket --name="bitbucket" -p 7990:7990 -p 7999:7999 atlassian/bitbucket-server
 ```
