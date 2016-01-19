@@ -64,7 +64,7 @@ TODO
 ## Start the infrastructure
 
 ```shell
-docker-compose --x-networking --project-name=cd up
+docker-compose --x-networking -f docker-compose.yml --project-name=cd up
 docker-compose -f docker-compose-registry.yml up -d
 ```
 
