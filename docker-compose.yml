@@ -24,8 +24,8 @@ artifactory:
   container_name: artifactory
   ports:
     - "8081:8081"
-  #volumes:
-  #  - $HOME/artifactory:/var/opt/jfrog/artifactory
+  volumes:
+   - /var/opt/jfrog/artifactory
 sonar:
   image: sonarqube:latest
   container_name: sonar
