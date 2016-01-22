@@ -9,4 +9,4 @@ registry:
     REGISTRY_HTTP_TLS_KEY: /certs/domain.key
     REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY: /var/lib/registry
   volumes:
-    - "/tmp/registry:/var/lib/registry"
+    - /var/lib/registry
