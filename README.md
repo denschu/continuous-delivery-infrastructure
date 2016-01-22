@@ -8,6 +8,7 @@ based on:
 
 related Git Repositories:
 * Example Ansible Inventory: https://github.com/denschu/example-ansible-inventory
+* CD Pipeline Ansible Inventory: https://github.com/denschu/cdpipeline-ansible-inventory
 * Ansible Playbooks: https://github.com/denschu/ansible-playbooks
 * Example Application: https://github.com/denschu/simple-wildfly-app
 * Job DSLs: https://github.com/denschu/job-dsl-repository
