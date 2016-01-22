@@ -14,6 +14,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
   config.vm.define :testserver do |testserver|
     testserver.vm.network :forwarded_port, host: 2222, guest: 22, id: "ssh", auto_correct: true
+    testserver.vm.network :forwarded_port, host: 8080, guest: 8080
+    testserver.vm.network :forwarded_port, host: 8081, guest: 8081
     testserver.vm.network :forwarded_port, host: 9080, guest: 9080
     testserver.vm.network "private_network", ip: "192.168.50.92"
     # Enable ssh forward agent
