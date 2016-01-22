@@ -47,6 +47,7 @@ TODO
 ## Start the infrastructure locally
 
 ```shell
+eval $(docker-machine env default)
 docker-compose up
 docker-compose -f docker-compose-registry.yml up -d
 ```
