@@ -26,24 +26,6 @@ See [Docker Toolbox](https://www.docker.com/docker-toolbox)
 ### Ansible
 See [Ansible Docs](http://docs.ansible.com/ansible/intro_installation.html)
 
-## Setup example application host based on Vagrant
-
-### Start testserver
-```shell
-cd testserver
-vagrant up
-```
-
-### Setup ssh keys
-```shell
-ssh-keygen # Simply press enter to all questions
-ssh-copy-id vagrant@192.168.50.92
-or
-cat ~/.ssh/id_rsa.pub | ssh vagrant@192.168.50.92 'umask 077; cat >>.ssh/authorized_keys'
-ssh vagrant@192.168.50.92
-exit
-```
-
 ## Setup CD infrastructure based on Docker
 
 ### Mac OS X
@@ -76,6 +58,24 @@ docker-compose -f docker-compose-registry.yml up -d
 | SonarQube | http://${docker-machine ip default}:9000/ | admin/admin |
 | Artifactory | http://${docker-machine ip default}:8081/artifactory | admin/password |
 | Bitbucket | http://${docker-machine ip default}:7990 | no login required |
+
+## Setup example application host based on Vagrant
+
+### Start testserver
+```shell
+cd testserver
+vagrant up
+```
+
+### Setup ssh keys
+```shell
+ssh-keygen # Simply press enter to all questions
+ssh-copy-id vagrant@192.168.50.92
+or
+cat ~/.ssh/id_rsa.pub | ssh vagrant@192.168.50.92 'umask 077; cat >>.ssh/authorized_keys'
+ssh vagrant@192.168.50.92
+exit
+```
 
 ## Steps
 
