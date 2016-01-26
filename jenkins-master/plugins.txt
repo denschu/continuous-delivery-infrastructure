@@ -18,3 +18,4 @@ ssh-credentials:1.10
 workflow-step-api:1.4.2
 dashboard-view:2.0
 job-dsl:1.42
+multiple-scms:0.5

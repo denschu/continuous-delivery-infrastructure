@@ -28,10 +28,5 @@ COPY config/hudson.tasks.Maven.xml /usr/share/jenkins/ref/hudson.tasks.Maven.xml
 COPY config/org.jenkinsci.plugins.ansible.AnsibleInstallation.xml /usr/share/jenkins/ref/org.jenkinsci.plugins.ansible.AnsibleInstallation.xml
 COPY config/credentials.xml /usr/share/jenkins/ref/credentials.xml
 
-# Adding Job DSL Seed Jobs
-# TODO COPY jobs/job-dsl-seed-job.xml /usr/share/jenkins/ref/jobs/job-dsl-seed-job/config.xml
-
-# Temporary: Adding default Jenkins Jobs
-COPY jobs/simple-web-rpm.xml /usr/share/jenkins/ref/jobs/simple-web-rpm/config.xml
-COPY jobs/simple-wildfly-app.xml /usr/share/jenkins/ref/jobs/simple-wildfly-app/config.xml
-COPY jobs/simple-wildfly-app-deploy.xml /usr/share/jenkins/ref/jobs/simple-wildfly-app-deploy/config.xml
+# Adding Job DSL Seed Job
+COPY jobs/job-dsl-seed-job.xml /usr/share/jenkins/ref/jobs/job-dsl-seed-job/config.xml
