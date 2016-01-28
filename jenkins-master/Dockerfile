@@ -28,5 +28,8 @@ COPY config/hudson.tasks.Maven.xml /usr/share/jenkins/ref/hudson.tasks.Maven.xml
 COPY config/org.jenkinsci.plugins.ansible.AnsibleInstallation.xml /usr/share/jenkins/ref/org.jenkinsci.plugins.ansible.AnsibleInstallation.xml
 COPY config/credentials.xml /usr/share/jenkins/ref/credentials.xml
 
+# Jenkins settings
+COPY plugins/promoted-builds-2.24.2-SNAPSHOT.hpi /usr/share/jenkins/ref/plugins/promoted-builds-2.24.2-SNAPSHOT.hpi
+
 # Adding Job DSL Seed Job
 COPY jobs/job-dsl-seed-job.xml /usr/share/jenkins/ref/jobs/job-dsl-seed-job/config.xml

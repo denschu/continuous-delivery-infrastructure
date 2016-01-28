@@ -10,7 +10,7 @@ github:1.13.3
 parameterized-trigger:2.29
 groovy-postbuild:2.2
 script-security:1.5
-promoted-builds:2.19
+#promoted-builds:2.19
 release:2.4.1
 parameterized-trigger:2.25
 ansible:0.4
