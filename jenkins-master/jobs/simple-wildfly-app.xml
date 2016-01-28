@@ -72,7 +72,7 @@
         <hudson.tasks.Maven>
           <targets>deploy -Pdocker -DpushImage</targets>
           <mavenName>(Default)</mavenName>
-          <properties>altDeploymentRepository=nexus-release-repository::default::http://artifactory:8081/artifactory/ext-release-local/</properties>
+          <properties>altDeploymentRepository=nexus-release-repository::default::http://nexus:8081/content/repositories/releases/</properties>
           <usePrivateRepository>false</usePrivateRepository>
           <settings class="jenkins.mvn.DefaultSettingsProvider"/>
           <globalSettings class="jenkins.mvn.DefaultGlobalSettingsProvider"/>
