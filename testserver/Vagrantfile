@@ -1,28 +1,47 @@
-# -*- mode: ruby -*-
-# vi: set ft=ruby :
-
-VAGRANTFILE_API_VERSION = "2"
-
-Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+Vagrant.configure("2") do |config|
   config.vm.box = "centos/7"
-  # If you run into issues with Ansible complaining about executable permissions,
-  # comment the following statement and uncomment the next one.
-  config.vm.synced_folder ".", "/vagrant"
-  # config.vm.synced_folder ".", "/vagrant", mount_options: ["dmode=700,fmode=600"]
+  # Disable the new default behavior introduced in Vagrant 1.7, to
+  # ensure that all Vagrant machines will use the same SSH key pair.
+  # See https://github.com/mitchellh/vagrant/issues/5005
+  config.ssh.insert_key = false
   config.vm.provider "virtualbox" do |v|
-    v.memory = 2048
+    v.memory = 1024
+  end
+  config.vm.boot_timeout = 1000
+  config.hostmanager.manage_host = true
+  config.vm.define :jenkins do |jenkins|
+    jenkins.vm.network "private_network", ip: "192.168.50.92"
+    jenkins.vm.hostname = "jenkins.denschu.de"
+    jenkins.vm.provision "file", source: "certs/domain.crt", destination: "/tmp/certs/domain.crt"
+    jenkins.vm.provision "file", source: "certs/domain.key", destination: "/tmp/certs/domain.key"
+    jenkins.vm.provision :shell, :inline => "cp /tmp/certs/domain.crt /etc/ssl/certs/domain.crt"
+    jenkins.vm.provision :shell, :inline => "cp /tmp/certs/domain.key /etc/ssl/certs/domain.key"
+  end
+  config.vm.define :nexus do |nexus|
+    nexus.vm.network "private_network", ip: "192.168.50.93"
+    nexus.vm.hostname = "nexus.denschu.de"
+    nexus.vm.provision "file", source: "certs/domain.crt", destination: "/tmp/certs/domain.crt"
+    nexus.vm.provision "file", source: "certs/domain.key", destination: "/tmp/certs/domain.key"
+    nexus.vm.provision :shell, :inline => "cp /tmp/certs/domain.crt /etc/ssl/certs/domain.crt"
+    nexus.vm.provision :shell, :inline => "cp /tmp/certs/domain.key /etc/ssl/certs/domain.key"
+  end
+  config.vm.define :registry do |registry|
+    registry.vm.network "private_network", ip: "192.168.50.96"
+    registry.vm.hostname = "docker.denschu.de"
+    registry.vm.provision "file", source: "certs/docker.crt", destination: "/tmp/certs/domain.crt"
+    registry.vm.provision "file", source: "certs/docker.key", destination: "/tmp/certs/domain.key"
+    registry.vm.provision :shell, :inline => "cp /tmp/certs/domain.crt /etc/ssl/certs/domain.crt"
+    registry.vm.provision :shell, :inline => "cp /tmp/certs/domain.key /etc/ssl/certs/domain.key"
   end
   config.vm.define :testserver do |testserver|
-    testserver.vm.network :forwarded_port, host: 2222, guest: 22, id: "ssh", auto_correct: true
-    testserver.vm.network :forwarded_port, host: 8080, guest: 8080
-    testserver.vm.network :forwarded_port, host: 8081, guest: 8081
-    testserver.vm.network :forwarded_port, host: 9080, guest: 9080
-    testserver.vm.network "private_network", ip: "192.168.50.92"
-    # Enable ssh forward agent
-    config.ssh.forward_agent = true
-    testserver.vm.hostname = "testserver"
+    testserver.vm.network "private_network", ip: "192.168.50.97"
+    testserver.vm.hostname = "testserver.denschu.de"
+    testserver.vm.provision "file", source: "certs/domain.crt", destination: "/tmp/certs/domain.crt"
+    testserver.vm.provision "file", source: "certs/domain.key", destination: "/tmp/certs/domain.key"
+    testserver.vm.provision :shell, :inline => "cp /tmp/certs/domain.crt /etc/ssl/certs/domain.crt"
+    testserver.vm.provision :shell, :inline => "cp /tmp/certs/domain.key /etc/ssl/certs/domain.key"
   end
-  #if Vagrant.has_plugin?("vagrant-cachier")
-#    config.cache.scope = :box
-#  end
 end
+
+#192.168.50.93 nexus.testserver.local
+#192.168.99.101 denschu.de

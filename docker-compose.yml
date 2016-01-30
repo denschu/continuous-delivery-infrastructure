@@ -11,10 +11,10 @@ jenkins-master:
     - "/var/run/docker.sock:/var/run/docker.sock"
     - "/usr/local/bin/docker:/bin/docker"
   extra_hosts:
-    # Example Host for the Example Application
-    - "testserver:192.168.50.92"
     # Private Docker Registry
-    - "denschu.de:192.168.99.101"
+    - "docker.denschu.de:192.168.50.96"
+    # Example Host for the Example Application
+    - "testserver:192.168.50.97"
   user: root
   links:
     - nexus
