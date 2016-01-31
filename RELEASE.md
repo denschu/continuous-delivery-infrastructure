@@ -2,7 +2,7 @@
 
 ## Install Docker Registry
 ansible-playbook docker-registry.yml --private-key=~/.vagrant.d/insecure_private_key -i ../cdpipeline-ansible-inventory/dev -u vagrant
-TODO: Container not running after first try
+TODO: Container not running after first try and after reboot
 
 ## Build custom images and push it to the private registry
 

@@ -17,50 +17,61 @@ related Git Repositories:
 
 ## Install Tools
 
-### Virtualization stuff
+### Vagrant
 
 See [Vagrant Installation Docs](https://docs.vagrantup.com/v2/installation/) for other operating systems.
 
 ### Docker
-See [Docker Toolbox](https://www.docker.com/docker-toolbox)
+See [Docker](https://docs.docker.com/linux/) for installation instructions. If you are on a Mac or a Windows system please use [Docker Toolbox](https://www.docker.com/docker-toolbox).
 
 ### Ansible
 See [Ansible Docs](http://docs.ansible.com/ansible/intro_installation.html)
 
 ## Setup
 
-### Mac OS X
+There are two ways to start and play around with the CD infrastructure. The recommended and most complete way is to use [Vagrant](https://www.vagrantup.com/) which starts up all containers that are needed to build, release, test, deploy and run the example application. With Docker Compose you can just run Jenkins, Nexus and Sonar at the moment.
 
-Create default host for CD infrastructure
+### Vagrant
+
+```shell
+cd testserver
+vagrant plugin install vagrant-hostmanager
+vagrant up
+```
+
+### Docker Compose
+
+Create default host for CD infrastructure:
+
 ```shell
 docker-machine create --driver virtualbox --virtualbox-memory "4096" --virtualbox-disk-size "40000" --engine-insecure-registry docker.denschu.de default
 ```
 
-## Start the infrastructure locally
+Start the infrastructure:
 
 ```shell
-eval $(docker-machine env default)
 docker-compose up
-docker-compose -f docker-compose-registry.yml up -d
 ```
 
 ## Access Tools
+
+### Vagrant hosts
+
+| *Tool* | *Link* | *Credentials* |
+| ------------- | ------------- | ------------- |
+| Jenkins | https://jenkins.denschu.de | no login required |
+| Nexus | https://nexus.denschu.de | admin/password |
+| SonarQube | http://sonar.denschu.de:9000/ | admin/admin |
+| Bitbucket | https://git.denschu.de | no login required |
+| Docker Registry | https://docker.denschu.de/v2/_catalog | no login required |
+
+### Docker machine hosts (on Mac OS X/Windows)
 
 | *Tool* | *Link* | *Credentials* |
 | ------------- | ------------- | ------------- |
 | Jenkins | http://${docker-machine ip default}:8080/jenkins/ | no login required |
 | SonarQube | http://${docker-machine ip default}:9000/ | admin/admin |
 | Nexus | http://${docker-machine ip default}:8081/nexus | admin/password |
-| Bitbucket | http://${docker-machine ip default}:7990 | no login required |
-
-## Setup example application host based on Vagrant
-
-### Start testserver
-```shell
-cd testserver
-vagrant plugin install vagrant-hostmanager
-vagrant up
-```
 
 ## Steps
 
