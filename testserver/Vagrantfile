@@ -42,6 +42,3 @@ Vagrant.configure("2") do |config|
     testserver.vm.provision :shell, :inline => "cp /tmp/certs/domain.key /etc/ssl/certs/domain.key"
   end
 end
-
-#192.168.50.93 nexus.testserver.local
-#192.168.99.101 denschu.de
