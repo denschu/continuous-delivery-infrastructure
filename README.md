@@ -78,7 +78,7 @@ docker-compose up
 The following steps are part of the generated Jenkins jobs.
 
 ### Build
-Execute Build in Jenkins (includes compile, package, unit-tests)
+Execute Build in Jenkins (includes compile, package, unit-tests, integration-tests)
 ```shell
 mvn deploy docker:build
 ```
@@ -96,8 +96,11 @@ ansible-playbook deployment.yml -i ../example-ansible-inventory/dev/inventory --
 ```
 ### Test
 Execute Selenium Tests with Jenkins
+```shell
+mvn integration-tests
+```
 
-### Provision
+### Provision (not part of the regular CD flow)
 optional step for new application hosts!
 ```shell
 ansible-playbook jboss.yml -i dev/inventory

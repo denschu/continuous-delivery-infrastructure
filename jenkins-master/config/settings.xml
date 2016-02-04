@@ -3,7 +3,12 @@
   <localRepository>/var/jenkins_home/.m2/repository</localRepository>
   <servers>
       <server>
-        <id>nexus-release-repository</id>
+        <id>nexus-snapshots-repository</id>
+        <username>admin</username>
+        <password>admin123</password>
+      </server>
+      <server>
+        <id>nexus-releases-repository</id>
         <username>admin</username>
         <password>admin123</password>
       </server>
