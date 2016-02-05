@@ -19,7 +19,7 @@ related Git Repositories:
 
 ### Vagrant
 
-See [Vagrant Installation Docs](https://docs.vagrantup.com/v2/installation/) for other operating systems.
+See [Vagrant Installation Docs](https://docs.vagrantup.com/v2/installation/).
 
 ### Docker
 See [Docker](https://docs.docker.com/linux/) for installation instructions. If you are on a Mac or a Windows system please use [Docker Toolbox](https://www.docker.com/docker-toolbox).
