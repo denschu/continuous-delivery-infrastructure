@@ -13,12 +13,12 @@ docker push docker.denschu.de/jenkins-master
 
 ### Jenkins NGINX
 docker build -t jenkins-nginx .
-docker tag jenkins-nginx docker.denschu.de/jenkins-nginx
+docker tag -f jenkins-nginx docker.denschu.de/jenkins-nginx
 docker push docker.denschu.de/jenkins-nginx
 
 ### Nexus NGINX
 docker build -t nexus-nginx .
-docker tag nexus-nginx docker.denschu.de/nexus-nginx
+docker tag -f nexus-nginx docker.denschu.de/nexus-nginx
 docker push docker.denschu.de/nexus-nginx
 
 ## Install CD Pipeline (Jenkins, Nexus, Sonar)

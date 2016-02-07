@@ -1,0 +1,16 @@
+nexus-nginx:
+    build: nexus-nginx
+    container_name: nexus-nginx
+    ports:
+      - "443:443"
+    volumes:
+      - "/Users/denschu/git/continuous-delivery-infrastructure/testserver/certs:/etc/nginx/ssl"
+    links:
+      - nexus
+nexus:
+  image: sonatype/nexus:oss
+  container_name: nexus
+  ports:
+    - "8081:8081"
+  volumes:
+    - "/sonatype-work"
