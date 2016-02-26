@@ -1,0 +1,7 @@
+example_eap_application:
+  container_name: example-eap-application
+  image_name: docker.denschu.de/example-eap-application
+  version: latest
+  count: 2
+  env:
+    jboss_jdbc_url: "value1"

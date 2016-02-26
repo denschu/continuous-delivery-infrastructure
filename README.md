@@ -6,13 +6,6 @@ based on:
 * Maven
 * Ansible
 
-related Git Repositories:
-* Example Ansible Inventory: https://github.com/denschu/example-ansible-inventory
-* CD Pipeline Ansible Inventory: https://github.com/denschu/cdpipeline-ansible-inventory
-* Ansible Playbooks: https://github.com/denschu/ansible-playbooks
-* Example Application: https://bitbucket.org/denschu/example-eap-application
-* Job DSLs: https://github.com/denschu/job-dsl-repository
-
 ![Overview](cd-infrastructure.png)
 
 ## Install Tools
@@ -34,7 +27,6 @@ There are two ways to start and play around with the CD infrastructure. The reco
 ### Vagrant
 
 ```shell
-cd testserver
 vagrant plugin install vagrant-hostmanager
 vagrant up
 ```

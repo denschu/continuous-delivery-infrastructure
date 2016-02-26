@@ -1,0 +1,9 @@
+- name: JBoss application container is running
+  docker:
+    insecure_registry: true
+    name: "{{ jboss.container_name }}"
+    image: "{{ jboss.image_name }}:{{ version }}"
+    ports: "{{ jboss.port_mapping }}"
+    pull: missing
+    #pull: always
+    state: reloaded

@@ -1,0 +1,17 @@
+haproxy:
+  user: vagrant
+  frontends:
+    - name: application-frontend
+      port: 80
+  backends:
+    - name: application-backend
+      balance: roundrobin
+      servers:
+        - name: example-eap-application-01
+          container: example-eap-application-01
+          port: 8080
+          option: check
+        - name: example-eap-application-02
+          container: example-eap-application-02
+          port: 8080
+          option: check

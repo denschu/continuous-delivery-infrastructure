@@ -1,0 +1,6 @@
+- hosts: registry
+  become: yes
+  become_method: sudo
+  roles:
+    - docker
+    - docker-registry

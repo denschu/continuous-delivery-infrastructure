@@ -1,0 +1,38 @@
+#- name: pull foo container manually
+#  shell: docker pull docker.denschu.de/jenkins-nginx:latest
+#- name: Create Jenkins Home directory
+#  file: path=/data/jenkins state=directory mode=0777
+- name: Jenkins container is running
+  docker:
+    insecure_registry: true
+    name: jenkins-master
+    image: docker.denschu.de/jenkins-master:{{ jenkins.version }}
+    ports:
+      - "50000:50000"
+      - "8080:8080"
+    pull: missing
+    state: reloaded
+    env:
+      JAVA_OPTS: "-Djava.awt.headless=true"
+    extra_hosts:
+      # Example Host for the Example Application
+      testserver: 192.168.50.92
+      # Private Docker Registry
+      denschu.de: 192.168.99.101
+    volumes:
+      - /data/jenkins:/var/jenkins_home
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "/usr/local/bin/docker:/bin/docker"
+    privileged: true
+- name: Jenkins NGINX container is running
+  docker:
+    insecure_registry: true
+    name: jenkins-nginx
+    image: docker.denschu.de/jenkins-nginx:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    pull: missing
+    state: reloaded
+    volumes:
+      - /etc/ssl/certs:/etc/nginx/ssl

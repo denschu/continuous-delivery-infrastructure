@@ -1,0 +1,15 @@
+- name: Docker Registry container is running
+  docker:
+    name: registry
+    image: registry:{{ registry.version }}
+    ports:
+      - "443:5000"
+    pull: missing
+    state: reloaded
+    volumes:
+    - /var/lib/registry
+    - /etc/ssl/certs:/certs
+    env:
+      REGISTRY_HTTP_TLS_CERTIFICATE: /certs/domain.crt
+      REGISTRY_HTTP_TLS_KEY: /certs/domain.key
+      REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY: /var/lib/registry

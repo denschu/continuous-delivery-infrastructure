@@ -1,0 +1,11 @@
+- name: Bitbucket container is running
+  docker:
+    name: bitbucket
+    image: atlassian/bitbucket-server:{{ bitbucket.version }}
+    ports:
+      - "9000:9000"
+      - "9092:9092"
+    pull: missing
+    state: reloaded
+    volumes:
+    - /var/atlassian/application-data/bitbucket

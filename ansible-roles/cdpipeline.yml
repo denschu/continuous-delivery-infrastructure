@@ -1,0 +1,12 @@
+- hosts: nexus
+  become: yes
+  become_method: sudo
+  roles:
+    - docker
+    - nexus
+- hosts: jenkins
+  become: yes
+  become_method: sudo
+  roles:
+    - docker
+    - jenkins

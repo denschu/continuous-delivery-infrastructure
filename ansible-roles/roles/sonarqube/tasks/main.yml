@@ -1,0 +1,9 @@
+- name: Sonarqube container is running
+  docker:
+    name: sonarqube
+    image: sonarqube:{{ sonarqube.version }}
+    ports:
+      - "9000:9000"
+      - "9092:9092"
+    pull: missing
+    state: reloaded

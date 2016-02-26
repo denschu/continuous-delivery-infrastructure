@@ -1,0 +1,6 @@
+- hosts: example
+  become: yes
+  become_method: sudo
+  roles:
+    #- docker
+    - { role: jboss, _jboss: "{{ example_eap_application }}" }

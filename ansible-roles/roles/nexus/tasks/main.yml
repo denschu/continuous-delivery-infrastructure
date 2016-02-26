@@ -1,0 +1,23 @@
+- name: Nexus container is running
+  docker:
+    insecure_registry: true
+    name: nexus
+    image: sonatype/nexus:oss
+    ports:
+      - "8081:8081"
+    pull: missing
+    state: reloaded
+    volumes:
+    - /sonatype-work
+- name: Nexus NGINX container is running
+  docker:
+    insecure_registry: true
+    name: nexus-nginx
+    image: docker.denschu.de/nexus-nginx:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    pull: missing
+    state: reloaded
+    volumes:
+      - /etc/ssl/certs:/etc/nginx/ssl

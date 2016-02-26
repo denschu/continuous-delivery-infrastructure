@@ -32,7 +32,3 @@ sonar:
   ports:
     - "9000:9000"
     - "9092:9092"
-  #environment:
-  #  SONARQUBE_JDBC_USERNAME: sonar
-  #  SONARQUBE_JDBC_PASSWORD: sonar
-  #  SONARQUBE_JDBC_URL: jdbc:postgresql://localhost/sonar
